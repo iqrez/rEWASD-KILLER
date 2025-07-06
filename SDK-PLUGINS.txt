@@ -1,0 +1,16 @@
+Wooting SDK Instructions
+-----------------------
+
+1. Download the **Wooting Analog SDK** from [https://github.com/WootingKb/wooting-analog-sdk](https://github.com/WootingKb/wooting-analog-sdk).
+   - Extract `wooting_analog_wrapper.dll` from the release package matching the bitness of your application (x64 recommended).
+
+2. Copy `wooting_analog_wrapper.dll` into the `native_sdks` folder at the root of this repository.
+   - Any additional native plugins should also be placed here in the future.
+
+3. Build the solution. All `*.dll` files found in `native_sdks` will be automatically copied to each project's output directory.
+
+Troubleshooting
+---------------
+- Ensure the DLLs are **unblocked** on Windows (right-click > Properties > Unblock).
+- The DLL architecture must match your build target (x64).
+- If the application fails to load the SDK, confirm the file exists in the output directory next to the executable.
