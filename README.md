@@ -9,9 +9,7 @@ A .NET 9 solution to log mouse and Wooting analog keyboard input using a WinForm
 
 ## Solution Structure
 - `InputMappingSolution.sln` – solution file.
-- `InputToControllerMapper/` – WinForms logger with embedded Wooting SDK P/Invoke code.
-  - `MainForm.cs`
-  - `WootingAnalog.cs`
+
   - `ApplicationConfiguration.cs`
   - `Program.cs`
   - `InputToControllerMapper.csproj` (copies DLLs).

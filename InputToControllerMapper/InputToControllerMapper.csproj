@@ -7,7 +7,6 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-
   <!--
     Copy all native DLLs from the solution-wide 'native_sdks' folder
     into this project's output directory after every build.
