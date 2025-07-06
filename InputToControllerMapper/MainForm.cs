@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-// Wooting SDK P/Invoke definitions are in WootingAnalog.cs
+main
 
 namespace InputToControllerMapper;
 
