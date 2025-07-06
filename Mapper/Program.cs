@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace InputToControllerMapper;
+namespace Mapper;
 
 internal static class Program
 {

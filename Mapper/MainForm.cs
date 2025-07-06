@@ -1,9 +1,8 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
- main
 
-namespace InputToControllerMapper;
+namespace Mapper;
 
 public class MainForm : Form
 {

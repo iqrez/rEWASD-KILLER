@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Core;
+namespace Mapper;
 
 /// <summary>
 /// Provides P/Invoke declarations for the Wooting Analog SDK.
