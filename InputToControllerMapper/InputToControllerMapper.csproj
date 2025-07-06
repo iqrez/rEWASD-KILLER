@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+
+  <!--
+    Copy all native DLLs from the solution-wide 'native_sdks' folder
+    into this project's output directory after every build.
+  -->
+  <ItemGroup>
+    <NativeDlls Include="$(SolutionDir)native_sdks\*.dll" />
+  </ItemGroup>
+
+  <Target Name="CopyNativeSdks" AfterTargets="Build">
+    <Copy SourceFiles="@(NativeDlls)" DestinationFolder="$(OutputPath)" SkipUnchangedFiles="true" />
+  </Target>
+</Project>
