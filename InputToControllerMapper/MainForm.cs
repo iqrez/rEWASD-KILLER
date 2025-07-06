@@ -2,6 +2,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Core;
+// Reference to the Core library for Wooting SDK P/Invokes
 
 namespace InputToControllerMapper;
 
