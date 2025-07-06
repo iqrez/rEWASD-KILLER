@@ -1,10 +1,7 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{50448FB6-A599-4489-8B7D-B941842C0E8D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InputToControllerMapper", "InputToControllerMapper\InputToControllerMapper.csproj", "{4E4BAA4A-FE7E-4F5A-80EB-4E6E90722663}"
 EndProject
 Global
@@ -16,10 +13,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{50448FB6-A599-4489-8B7D-B941842C0E8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{50448FB6-A599-4489-8B7D-B941842C0E8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{50448FB6-A599-4489-8B7D-B941842C0E8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{50448FB6-A599-4489-8B7D-B941842C0E8D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4E4BAA4A-FE7E-4F5A-80EB-4E6E90722663}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4E4BAA4A-FE7E-4F5A-80EB-4E6E90722663}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E4BAA4A-FE7E-4F5A-80EB-4E6E90722663}.Release|Any CPU.ActiveCfg = Release|Any CPU
