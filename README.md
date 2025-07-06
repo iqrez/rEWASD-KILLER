@@ -11,6 +11,8 @@ A .NET 9 solution to log mouse and Wooting analog keyboard input using a WinForm
 - `Mapper.sln` – solution file.
   - `ApplicationConfiguration.cs`
   - `Program.cs`
+- `RawInputHandler.cs` – Win32 raw input wrapper raising events.
+- `VirtualControllerManager.cs` – stub for mapping input to a virtual pad.
   - `Mapper.csproj` (copies DLLs).
 - `native_sdks/` – drop all native DLLs here (initially empty).
 - `SDK-PLUGINS.txt` – SDK setup and troubleshooting guide.

@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Mapper;
@@ -8,56 +7,8 @@ public class MainForm : Form
 {
     private readonly TextBox _logBox;
     private readonly System.Windows.Forms.Timer _analogTimer;
-
-    // Win32 constants
-    private const int WM_INPUT = 0x00FF;
-    private const uint RIDEV_INPUTSINK = 0x00000100;
-    private const uint RID_INPUT = 0x10000003;
-    private static readonly uint RAWINPUTHEADER_SIZE = (uint)Marshal.SizeOf<RAWINPUTHEADER>();
-
-    [StructLayout(LayoutKind.Sequential)]
-    private struct RAWINPUTDEVICE
-    {
-        public ushort usUsagePage;
-        public ushort usUsage;
-        public uint dwFlags;
-        public IntPtr hwndTarget;
-    }
-
-    [StructLayout(LayoutKind.Sequential)]
-    private struct RAWINPUTHEADER
-    {
-        public uint dwType;
-        public uint dwSize;
-        public IntPtr hDevice;
-        public IntPtr wParam;
-    }
-
-    [StructLayout(LayoutKind.Sequential)]
-    private struct RAWMOUSE
-    {
-        public ushort usFlags;
-        public uint ulButtons;
-        public ushort usButtonFlags;
-        public ushort usButtonData;
-        public uint ulRawButtons;
-        public int lLastX;
-        public int lLastY;
-        public uint ulExtraInformation;
-    }
-
-    [StructLayout(LayoutKind.Sequential)]
-    private struct RAWINPUT
-    {
-        public RAWINPUTHEADER header;
-        public RAWMOUSE mouse;
-    }
-
-    [DllImport("user32.dll", SetLastError = true)]
-    private static extern bool RegisterRawInputDevices(RAWINPUTDEVICE[] pRawInputDevices, uint uiNumDevices, uint cbSize);
-
-    [DllImport("user32.dll", SetLastError = true)]
-    private static extern uint GetRawInputData(IntPtr hRawInput, uint uiCommand, IntPtr pData, ref uint pcbSize, uint cbSizeHeader);
+    private RawInputHandler? _rawHandler;
+    private readonly VirtualControllerManager _controller = new();
 
     public MainForm()
     {
@@ -87,8 +38,27 @@ public class MainForm : Form
         {
             Log($"Wooting SDK DLL not found: {ex.Message}");
         }
+    }
 
-        RegisterForRawMouse();
+    protected override void OnHandleCreated(EventArgs e)
+    {
+        base.OnHandleCreated(e);
+        _rawHandler = new RawInputHandler(Handle);
+        _rawHandler.OnMouseDelta += (dx, dy) =>
+        {
+            Log($"Mouse delta: {dx},{dy}");
+            _controller.HandleMouseDelta(dx, dy);
+        };
+        _rawHandler.OnMouseButton += (btn, pressed) =>
+        {
+            Log($"Mouse {btn} {(pressed ? "down" : "up")}");
+            _controller.HandleMouseButton(btn, pressed);
+        };
+        _rawHandler.OnKeyEvent += (key, pressed) =>
+        {
+            Log($"Key {key} {(pressed ? "down" : "up")}");
+            _controller.HandleKeyEvent(key, pressed);
+        };
     }
 
     private void AnalogTimer_Tick(object? sender, EventArgs e)
@@ -107,49 +77,9 @@ public class MainForm : Form
         Log($"Analog W: {value:F3}");
     }
 
-    private void RegisterForRawMouse()
-    {
-        RAWINPUTDEVICE[] rid = new[]
-        {
-            new RAWINPUTDEVICE
-            {
-                usUsagePage = 0x01, // Generic desktop controls
-                usUsage = 0x02,     // Mouse
-                dwFlags = RIDEV_INPUTSINK,
-                hwndTarget = Handle
-            }
-        };
-
-        if (!RegisterRawInputDevices(rid, (uint)rid.Length, (uint)Marshal.SizeOf<RAWINPUTDEVICE>()))
-        {
-            Log($"RegisterRawInputDevices failed with error {Marshal.GetLastWin32Error()}");
-        }
-    }
-
     protected override void WndProc(ref Message m)
     {
-        if (m.Msg == WM_INPUT)
-        {
-            uint dwSize = 0;
-            // First call to obtain the required buffer size
-            GetRawInputData(m.LParam, RID_INPUT, IntPtr.Zero, ref dwSize, RAWINPUTHEADER_SIZE);
-            if (dwSize > 0)
-            {
-                IntPtr buffer = Marshal.AllocHGlobal((int)dwSize);
-                try
-                {
-                    if (GetRawInputData(m.LParam, RID_INPUT, buffer, ref dwSize, RAWINPUTHEADER_SIZE) == dwSize)
-                    {
-                        RAWINPUT raw = Marshal.PtrToStructure<RAWINPUT>(buffer);
-                        Log($"Mouse: X={raw.mouse.lLastX} Y={raw.mouse.lLastY}");
-                    }
-                }
-                finally
-                {
-                    Marshal.FreeHGlobal(buffer);
-                }
-            }
-        }
+        _rawHandler?.ProcessMessage(m);
         base.WndProc(ref m);
     }
 
