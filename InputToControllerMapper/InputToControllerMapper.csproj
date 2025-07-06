@@ -7,9 +7,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj" />
-  </ItemGroup>
+ main
 
   <!--
     Copy all native DLLs from the solution-wide 'native_sdks' folder
