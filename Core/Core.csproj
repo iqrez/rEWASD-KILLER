@@ -4,11 +4,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-  <!--
-    No <Compile Include="..."/> items are defined here.  The SDK
-    automatically includes all .cs files in this directory.  Leaving
-    the list empty avoids errors like CS2001 from stray entries.
-  -->
+ main
 
   <!--
     Copy all native DLLs from the solution-wide 'native_sdks' folder
