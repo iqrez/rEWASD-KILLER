@@ -180,8 +180,8 @@ internal static class Program
         short rx = ApplyCurve(raw.mouse.lLastX, DefaultDpi);
         short ry = (short)-ApplyCurve(raw.mouse.lLastY, DefaultDpi); // invert Y
 
-        _controller.SetAxisValue(Nefarius.ViGEm.Client.Targets.Xbox360.Xbox360Axis.RightThumbX, rx);
-        _controller.SetAxisValue(Nefarius.ViGEm.Client.Targets.Xbox360.Xbox360Axis.RightThumbY, ry);
+        _controller.SetAxisValue(Nefarius.ViGEm.Client.Targets.Xbox360.Xbox360Axis.RightThumbX, (ushort)rx);
+        _controller.SetAxisValue(Nefarius.ViGEm.Client.Targets.Xbox360.Xbox360Axis.RightThumbY, (ushort)ry);
         _controller.SubmitReport();
     }
 
