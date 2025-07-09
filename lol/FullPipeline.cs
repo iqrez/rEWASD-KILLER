@@ -387,8 +387,8 @@ internal static class FullPipeline
         {
             lock (_lock)
             {
-                _controller.SetAxisValue(Xbox360Axis.RightThumbX, x);
-                _controller.SetAxisValue(Xbox360Axis.RightThumbY, y);
+                _controller.SetAxisValue(Xbox360Axis.RightThumbX, (short)x);
+                _controller.SetAxisValue(Xbox360Axis.RightThumbY, (short)y);
                 _controller.SubmitReport();
             }
         }
